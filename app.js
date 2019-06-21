@@ -45,12 +45,52 @@ app.get('/', (req, res) => {
   })
 })
 
+// show all restaurants
+app.get('/restaurants', (req, res) => {
+  Restaurant.find((err, restaurants) => {
+    if (err) return console.error(err)
+    return res.render('index', { restaurants: restaurants })
+  })
+})
+
+
+// show detail page
 app.get('/restaurants/:id', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.error(err)
     return res.render('detail', { restaurant: restaurant })
   })
 })
+
+// create new restaurant page
+app.get('/restaurants/new', (req, res) => {
+
+})
+
+
+// create new one restaurant action
+app.post('/restaurants', (req, res) => {
+
+})
+
+// edit page
+app.get('/restaurants/:id/edit', (req, res) => {
+
+})
+
+// edit action
+app.post('/restaurants/:id/', (req, res) => {
+
+})
+
+
+
+// delete restaurant action
+app.post('/restaurants/:id/delete', (req, res) => {
+
+})
+
+
 
 app.listen(3000, () => {
   console.log('web server is running')
