@@ -37,9 +37,11 @@
       <img class="rounded mx-auto d-block mb-4 w-100" src="{{restaurant.image}}" alt="{{restaurant.name}}"
         style="max-width: 600px;">
       <div class="operation text-center mb-4">
-        <a href="" class="mr-3">Edit</a>
-        <a href="" class="mr-3">Detail</a>
-        <button type="submit">Delete</button>
+        <a href="/restaurants/{{restaurant.id}}/edit" class="mr-3">Edit</a>
+        <a href="/restaurants" class="mr-3">Back to all</a>
+        <form action="/restaurants/{{restaurant.id}}/delete" method="POST" style="display: inline;">
+          <button type="submit">Delete</button>
+        </form>
       </div>
     </div>
   </div>

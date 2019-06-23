@@ -4,6 +4,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const setSelected = require('./helpers/selected.js')
 
 // set bady-parser
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -81,22 +82,52 @@ app.get('/restaurants/:id', (req, res) => {
 
 // edit page
 app.get('/restaurants/:id/edit', (req, res) => {
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.error(err)
+    return res.render('edit', {
+      restaurant: restaurant, helpers: {
+        setSelected: setSelected
+      }
+    })
+  })
 
 })
 
 // edit action
 app.post('/restaurants/:id', (req, res) => {
-
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    Object.assign(restaurant, req.body)
+    restaurant.save(err => {
+      if (err) return console.error(err)
+      return res.redirect(`/restaurants/${req.params.id}`)
+    })
+  })
 })
 
 
 
 // delete restaurant action
 app.post('/restaurants/:id/delete', (req, res) => {
-
+  Restaurant.findById(req.params.id, (err, restaurant) => {
+    if (err) return console.error(err)
+    restaurant.remove(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  })
 })
 
-
+// setting search results route
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  const regExp = new RegExp(keyword, 'i')
+  Restaurant.find((err, restaurants) => {
+    restaurants = restaurants.filter(restaurant => {
+      return regExp.test(restaurant.name) || regExp.test(restaurant.category) || regExp.test(restaurant.location)
+    })
+    res.render('index', { restaurants: restaurants, keyword: keyword })
+  })
+})
 
 app.listen(3000, () => {
   console.log('web server is running')
