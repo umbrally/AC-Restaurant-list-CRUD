@@ -38,94 +38,10 @@ const Restaurant = require('./models/restaurant.js')
 
 
 // routes setting
-// setting main page route
-app.get('/', (req, res) => {
-  Restaurant.find((err, restaurants) => {
-    if (err) return console.error(err)
-    return res.render('index', { restaurants: restaurants })
-  })
-})
 
-// show all restaurants
-app.get('/restaurants', (req, res) => {
-  Restaurant.find((err, restaurants) => {
-    if (err) return console.error(err)
-    return res.render('index', { restaurants: restaurants })
-  })
-})
-
-// create new restaurant page
-app.get('/restaurants/new', (req, res) => {
-  return res.render('new')
-})
-
-
-// create new one restaurant action
-app.post('/restaurants', (req, res) => {
-  const restaurant = new Restaurant(req.body)
-  restaurant.save(err => {
-    if (err) return console.error(err)
-    return res.redirect('/')
-  })
-})
-
-
-
-// show detail page
-app.get('/restaurants/:id', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.error(err)
-    return res.render('detail', { restaurant: restaurant })
-  })
-})
-
-
-// edit page
-app.get('/restaurants/:id/edit', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.error(err)
-    return res.render('edit', {
-      restaurant: restaurant, helpers: {
-        setSelected: setSelected
-      }
-    })
-  })
-
-})
-
-// edit action
-app.post('/restaurants/:id', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    Object.assign(restaurant, req.body)
-    restaurant.save(err => {
-      if (err) return console.error(err)
-      return res.redirect(`/restaurants/${req.params.id}`)
-    })
-  })
-})
-
-// delete restaurant action
-app.post('/restaurants/:id/delete', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
-    if (err) return console.error(err)
-    restaurant.remove(err => {
-      if (err) return console.error(err)
-      return res.redirect('/')
-    })
-  })
-})
-
-// setting search results route
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const regExp = new RegExp(keyword, 'i')
-  Restaurant.find((err, restaurants) => {
-    restaurants = restaurants.filter(restaurant => {
-      return regExp.test(restaurant.name) || regExp.test(restaurant.category) || regExp.test(restaurant.location)
-    })
-    res.render('index', { restaurants: restaurants, keyword: keyword })
-  })
-})
+app.use('/', require('./routes/home.js'))
+app.use('/restaurants', require('./routes/restaurants.js'))
+app.use('/search', require('./routes/search.js'))
 
 app.listen(3000, () => {
   console.log('web server is running')
