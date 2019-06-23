@@ -53,6 +53,22 @@ app.get('/restaurants', (req, res) => {
   })
 })
 
+// create new restaurant page
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+
+// create new one restaurant action
+app.post('/restaurants', (req, res) => {
+  const restaurant = new Restaurant(req.body)
+  restaurant.save(err => {
+    if (err) return console.error(err)
+    return res.redirect('/')
+  })
+})
+
+
 
 // show detail page
 app.get('/restaurants/:id', (req, res) => {
@@ -62,16 +78,6 @@ app.get('/restaurants/:id', (req, res) => {
   })
 })
 
-// create new restaurant page
-app.get('/restaurants/new', (req, res) => {
-
-})
-
-
-// create new one restaurant action
-app.post('/restaurants', (req, res) => {
-
-})
 
 // edit page
 app.get('/restaurants/:id/edit', (req, res) => {
@@ -79,7 +85,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 })
 
 // edit action
-app.post('/restaurants/:id/', (req, res) => {
+app.post('/restaurants/:id', (req, res) => {
 
 })
 
