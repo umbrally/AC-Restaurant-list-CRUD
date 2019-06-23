@@ -4,6 +4,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 const setSelected = require('./helpers/selected.js')
 
 // set bady-parser
@@ -12,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // set handlebars as template engine and use 'main' as default layout
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
+
+// 設定 method-override
+app.use(methodOverride('_method'))
 
 // set static files
 app.use(express.static('public'))

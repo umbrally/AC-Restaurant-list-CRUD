@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant.js')
+const setSelected = require('../helpers/selected.js')
 
 // show all restaurants
 router.get('/', (req, res) => {
@@ -50,7 +51,7 @@ router.get('/:id/edit', (req, res) => {
 })
 
 // edit action
-router.post('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     Object.assign(restaurant, req.body)
     restaurant.save(err => {
@@ -61,7 +62,7 @@ router.post('/:id', (req, res) => {
 })
 
 // delete restaurant action
-router.post('/:id/delete', (req, res) => {
+router.delete('/:id/delete', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
     if (err) return console.error(err)
     restaurant.remove(err => {

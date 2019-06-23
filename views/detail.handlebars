@@ -39,7 +39,7 @@
       <div class="operation text-center mb-4">
         <a href="/restaurants/{{restaurant.id}}/edit" class="mr-3 btn btn-info">Edit</a>
         <a href="/restaurants" class="mr-3 btn btn-info">Back to all</a>
-        <form action="/restaurants/{{restaurant.id}}/delete" method="POST" style="display: inline;">
+        <form action="/restaurants/{{restaurant.id}}/delete?_method=DELETE" method="POST" style="display: inline;">
           <button type="submit" class=" btn btn-danger btn-sm">Delete</button>
         </form>
       </div>
