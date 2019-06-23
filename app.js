@@ -104,8 +104,6 @@ app.post('/restaurants/:id', (req, res) => {
   })
 })
 
-
-
 // delete restaurant action
 app.post('/restaurants/:id/delete', (req, res) => {
   Restaurant.findById(req.params.id, (err, restaurant) => {
