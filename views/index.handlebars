@@ -2,8 +2,8 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
-      <form action="/search" class="row">
-        <div class="col-10">
+      <form action="/search" class="row justify-content-between">
+        <div class="col-4">
           <h4 class="mb-2">尋找餐廳：</h4>
           <div class="input-group">
             <input type="text" name="keyword" value="{{keyword}}" class=" form-control" placeholder="輸入餐廳、分類、地址"
@@ -13,9 +13,16 @@
             </div>
           </div>
         </div>
-        <div class="create col-2 pt-5">
-          <a href="/restaurants/new" class="align-center badge badge-pill badge-warning">新增餐廳<i
-              class="fas fa-utensils ml-2"></i></a>
+        <div class="dropdown col-4 align-self-end sort">
+          <button class="btn btn-light dropdown-toggle text-left" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">A-Z</a>
+            <a class="dropdown-item" href="#">Z-A</a>
+            <a class="dropdown-item" href="#">類別</a>
+          </div>
         </div>
       </form>
     </div>
