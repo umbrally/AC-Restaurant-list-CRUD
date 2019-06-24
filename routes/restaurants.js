@@ -16,16 +16,7 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 
-// show sort results
-router.get('/:id/:type', (req, res) => {
-  console.log(restaurants)
-  Restaurant.find({})
-    .sort({ [req.params.id]: req.params.type })
-    .exec((err, restaurants) => {
-      if (err) return console.error(err)
-      return res.render('index', { restaurants: restaurants })
-    })
-})
+
 
 
 
@@ -59,7 +50,6 @@ router.get('/:id/edit', (req, res) => {
       }
     })
   })
-
 })
 
 // edit action
@@ -82,6 +72,16 @@ router.delete('/:id/delete', (req, res) => {
       return res.redirect('/')
     })
   })
+})
+
+// show sort results
+router.get('/:item/:type', (req, res) => {
+  Restaurant.find({})
+    .sort({ [req.params.item]: req.params.type })
+    .exec((err, restaurants) => {
+      if (err) return console.error(err)
+      return res.render('index', { restaurants: restaurants })
+    })
 })
 
 module.exports = router

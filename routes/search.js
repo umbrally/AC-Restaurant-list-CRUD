@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant.js')
-
 // setting search results route
 router.get('/', (req, res) => {
   const keyword = req.query.keyword
@@ -13,4 +12,5 @@ router.get('/', (req, res) => {
     res.render('index', { restaurants: restaurants, keyword: keyword })
   })
 })
+
 module.exports = router
