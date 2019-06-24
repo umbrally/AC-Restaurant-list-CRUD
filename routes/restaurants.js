@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant.js')
 const setSelected = require('../helpers/selected.js')
+const search = require('./search.js')
 
 // show all restaurants
 router.get('/', (req, res) => {
@@ -15,6 +16,18 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
   return res.render('new')
 })
+
+// show sort results
+router.get('/:id/:type', (req, res) => {
+  console.log(restaurants)
+  Restaurant.find({})
+    .sort({ [req.params.id]: req.params.type })
+    .exec((err, restaurants) => {
+      if (err) return console.error(err)
+      return res.render('index', { restaurants: restaurants })
+    })
+})
+
 
 
 // create new one restaurant action

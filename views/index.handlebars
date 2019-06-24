@@ -19,9 +19,11 @@
             Sort
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">A-Z</a>
-            <a class="dropdown-item" href="#">Z-A</a>
-            <a class="dropdown-item" href="#">類別</a>
+            <a class="dropdown-item" href="/restaurants/name_en/asc">A-Z</a>
+            <a class="dropdown-item" href="/restaurants/name_en/desc">Z-A</a>
+            <a class="dropdown-item" href="/restaurants/rating/desc">評分</a>
+            <a class="dropdown-item" href="/restaurants/category/asc">類別</a>
+            <a class="dropdown-item" href="/restaurants/location/asc">地區</a>
           </div>
         </div>
       </form>
@@ -54,10 +56,35 @@
           <div class="operation text-right">
             <a href="/restaurants/{{this.id}}/edit" class="mr-2 btn btn-secondary">Edit</a>
             <a href="/restaurants/{{this.id}}" class="mr-2 btn btn-secondary">Detail</a>
-            <form action="/restaurants/{{this.id}}/delete?_method=DELETE" method="POST" style="display: inline;"
-              class="delete">
-              <button type="submit" class=" btn btn-danger">Delete</button>
-            </form>
+
+            <button type="button" class=" btn btn-danger" data-toggle="modal"
+              data-target="#delete-button-{{this.id}}">Delete</button>
+
+
+            <!-- Modal for delete confirmation-->
+            <div class="modal fade" id="delete-button-{{this.id}}" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">要刪除{{this.name}}?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    確定要刪除嗎?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <form action="/restaurants/{{this.id}}/delete?_method=DELETE" method="POST"
+                      style="display: inline;">
+                      <button type="submit" class=" btn btn-danger btn-sm">Delete</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
