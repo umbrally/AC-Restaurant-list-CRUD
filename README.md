@@ -28,8 +28,12 @@ $ git clone https://github.com/umbrally/AC-Restaurant-list-CRUD.git
 ```
 $ npm install
 ```
+4. Import seed data
+```
+$ node ./models/seeds/restaurantSeeder.js
+```
 
-3. [http://localhost:3000](http://localhost:3000) on your browser
+5. [http://localhost:3000](http://localhost:3000) on your browser
 ```
 $ npm run dev
 ```
@@ -39,8 +43,10 @@ $ npm run dev
 
 * Create new restaurant
 * Read restaurant detail information
-* Edit, delete function on main page and detail page
-* Search restaurants with keywords in name or location or category.
+* Edit, delete function on main page and detail page.
+* Alert modal will show if delete button is clicked. 
+* Search restaurants with keywords of name or location or category.
+* Sort by A-Z or Z-A of English name, category, rating and location.
 
 ## Authors
 

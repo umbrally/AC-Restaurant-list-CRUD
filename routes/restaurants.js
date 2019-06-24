@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../models/restaurant.js')
 const setSelected = require('../helpers/selected.js')
-const search = require('./search.js')
 
 // show all restaurants
 router.get('/', (req, res) => {
