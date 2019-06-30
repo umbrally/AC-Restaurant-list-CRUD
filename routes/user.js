@@ -13,7 +13,9 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/users/login'
+    failureRedirect: '/users/login',
+    badRequestMessage: '請輸入Email及密碼',
+    failureFlash: true
   })
     (req, res, next)
 
@@ -30,8 +32,8 @@ router.post('/register', (req, res) => {
   // 加入錯誤訊息提示
   let errors = []
 
-  if (!name || !email || !password || !password2) {
-    errors.push({ message: '所有欄位都是必填' })
+  if (!email || !password || !password2) {
+    errors.push({ message: 'Email, Password, Confirm password 欄位都是必填' })
   }
 
   if (password !== password2) {

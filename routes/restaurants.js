@@ -4,20 +4,21 @@ const Restaurant = require('../models/restaurant.js')
 const setSelected = require('../helpers/selected.js')
 
 
-// show sort results
-router.get('/', (req, res) => {
+// 載入 auth middleware
+const { authenticated } = require('../config/auth.js')
 
+// show sort results
+router.get('/', authenticated, (req, res) => {
   if (req.query.type) {
-    Restaurant.find({})
+    Restaurant.find({ userId: req.user._id })
       .sort({ [req.query.type.split(' ')[0]]: req.query.type.split(' ')[1] })
       .exec((err, restaurants) => {
         if (err) return console.error(err)
         return res.render('index', { restaurants: restaurants })
       })
   }
-
   else {
-    Restaurant.find((err, restaurants) => {
+    Restaurant.find({ userId: req.user._id }, (err, restaurants) => {
       if (err) return console.error(err)
       return res.render('index', { restaurants: restaurants })
     })
@@ -34,14 +35,14 @@ router.get('/', (req, res) => {
 // })
 
 // create new restaurant page
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
   return res.render('new')
 })
 
 
 
 // create new one restaurant action
-router.post('/', (req, res) => {
+router.post('/', authenticated, (req, res) => {
   const restaurant = new Restaurant({
     name: req.body.name,
     name_en: req.body.name_en,
@@ -49,9 +50,10 @@ router.post('/', (req, res) => {
     image: req.body.image,
     location: req.body.location,
     phone: req.body.phone,
-    google_map: req.bode.google_map,
+    google_map: req.body.google_map,
     rating: req.body.rating,
-    description: req.body.description
+    description: req.body.description,
+    userId: req.user._id
   })
   restaurant.save(err => {
     if (err) return console.error(err)
@@ -62,8 +64,8 @@ router.post('/', (req, res) => {
 
 
 // show detail page
-router.get('/:id', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+router.get('/:id', authenticated, (req, res) => {
+  Restaurant.findOne({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.error(err)
     return res.render('detail', { restaurant: restaurant })
   })
@@ -71,8 +73,8 @@ router.get('/:id', (req, res) => {
 
 
 // edit page
-router.get('/:id/edit', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+router.get('/:id/edit', authenticated, (req, res) => {
+  Restaurant.findOne({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.error(err)
     return res.render('edit', {
       restaurant: restaurant, helpers: {
@@ -83,8 +85,8 @@ router.get('/:id/edit', (req, res) => {
 })
 
 // edit action
-router.put('/:id', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+router.put('/:id', authenticated, (req, res) => {
+  Restaurant.findOne({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     Object.assign(restaurant, req.body)
     restaurant.save(err => {
       if (err) return console.error(err)
@@ -94,8 +96,8 @@ router.put('/:id', (req, res) => {
 })
 
 // delete restaurant action
-router.delete('/:id/delete', (req, res) => {
-  Restaurant.findById(req.params.id, (err, restaurant) => {
+router.delete('/:id/delete', authenticated, (req, res) => {
+  Restaurant.findOne({ _id: req.params.id, userId: req.user._id }, (err, restaurant) => {
     if (err) return console.error(err)
     restaurant.remove(err => {
       if (err) return console.error(err)
@@ -104,15 +106,5 @@ router.delete('/:id/delete', (req, res) => {
   })
 })
 
-// // show sort results
-// router.get('/', (req, res) => {
-//   console.log(req.query)
-//   Restaurant.find({})
-//     .sort({ [req.query.type]: req.params.type })
-//     .exec((err, restaurants) => {
-//       if (err) return console.error(err)
-//       return res.render('index', { restaurants: restaurants })
-//     })
-// })
 
 module.exports = router
