@@ -17,9 +17,8 @@ db.on('error', () => {
 // if database connection is normal
 db.once('open', () => {
   console.log('mongodb connected')
-  for (let i = 0; i < restaurantSeedResults.length; i++)
-    Restaurant.create({
-      name: restaurantSeedResults[i].name, name_en: restaurantSeedResults[i].name_en, category: restaurantSeedResults[i].category, image: restaurantSeedResults[i].image, location: restaurantSeedResults[i].location, phone: restaurantSeedResults[i].phone, google_map: restaurantSeedResults[i].google_map, rating: restaurantSeedResults[i].rating, description: restaurantSeedResults[i].description
-    })
+  restaurantSeedResults.forEach(restaurant => {
+    Restaurant.create(restaurant);
+  })
 
 })

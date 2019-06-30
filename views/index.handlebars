@@ -1,32 +1,43 @@
 <!-- search bar -->
 <div class="container search-bar">
   <div class="search-bar-outer">
-    <div class="search-bar-inner">
-      <form action="/search" class="row justify-content-between">
-        <div class="col-8">
-          <h4 class="mb-2">尋找餐廳：</h4>
-          <div class="input-group">
-            <input type="text" name="keyword" value="{{keyword}}" class=" form-control" placeholder="輸入餐廳、分類、地址"
-              aria-label="Restaurant Name..." value="" aria-describedby="search-button">
-            <div class="input-group-append">
-              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-            </div>
+    <div class="search-bar-inner row justify-content-between">
+      <form action="/search" method="GET" class="col-8">
+        {{!-- <div class="col-8"> --}}
+        <h4 class="mb-2">尋找餐廳：</h4>
+        <div class="input-group">
+          <input type="text" name="keyword" value="{{keyword}}" class=" form-control" placeholder="輸入餐廳、分類、地址"
+            aria-label="Restaurant Name..." value="" aria-describedby="search-button">
+          <div class="input-group-append">
+            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
         </div>
-        <div class="dropdown col-4 align-self-end sort">
-          <button class="btn btn-light dropdown-toggle text-left" type="button" id="dropdownMenuButton"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/restaurants/name_en/asc">A-Z</a>
-            <a class="dropdown-item" href="/restaurants/name_en/desc">Z-A</a>
-            <a class="dropdown-item" href="/restaurants/rating/desc">評分</a>
-            <a class="dropdown-item" href="/restaurants/category/asc">類別</a>
-            <a class="dropdown-item" href="/restaurants/location/asc">地區</a>
-          </div>
-        </div>
+        {{!-- </div> --}}
+
       </form>
+      <div class="dropdown col-4 align-self-end sort">
+        <button class="btn btn-light dropdown-toggle text-left" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <form action="/restaurants" method="GET">
+            <button class="btn" type="submit" name="type" value="name_en asc">A-Z</button>
+          </form>
+          <form action="/restaurants" method="GET">
+            <button class="btn" type="submit" name="type" value="name_en desc">Z-A</button>
+          </form>
+          <form action="/restaurants" method="GET">
+            <button class="btn" type="submit" name="type" value="rating desc">評分</button>
+          </form>
+          <form action="/restaurants" method="GET">
+            <button class="btn" type="submit" name="type" value="category asc">類別</button>
+          </form>
+          <form action="/restaurants" method="GET">
+            <button class="btn" type="submit" name="type" value="location asc">地區</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

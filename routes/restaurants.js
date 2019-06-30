@@ -3,13 +3,35 @@ const router = express.Router()
 const Restaurant = require('../models/restaurant.js')
 const setSelected = require('../helpers/selected.js')
 
-// show all restaurants
+
+// show sort results
 router.get('/', (req, res) => {
-  Restaurant.find((err, restaurants) => {
-    if (err) return console.error(err)
-    return res.render('index', { restaurants: restaurants })
-  })
+
+  if (req.query.type) {
+    Restaurant.find({})
+      .sort({ [req.query.type.split(' ')[0]]: req.query.type.split(' ')[1] })
+      .exec((err, restaurants) => {
+        if (err) return console.error(err)
+        return res.render('index', { restaurants: restaurants })
+      })
+  }
+
+  else {
+    Restaurant.find((err, restaurants) => {
+      if (err) return console.error(err)
+      return res.render('index', { restaurants: restaurants })
+    })
+  }
 })
+
+
+// // show all restaurants
+// router.get('/', (req, res) => {
+//   Restaurant.find((err, restaurants) => {
+//     if (err) return console.error(err)
+//     return res.render('index', { restaurants: restaurants })
+//   })
+// })
 
 // create new restaurant page
 router.get('/new', (req, res) => {
@@ -18,11 +40,19 @@ router.get('/new', (req, res) => {
 
 
 
-
-
 // create new one restaurant action
 router.post('/', (req, res) => {
-  const restaurant = new Restaurant(req.body)
+  const restaurant = new Restaurant({
+    name: req.body.name,
+    name_en: req.body.name_en,
+    category: req.body.category,
+    image: req.body.image,
+    location: req.body.location,
+    phone: req.body.phone,
+    google_map: req.bode.google_map,
+    rating: req.body.rating,
+    description: req.body.description
+  })
   restaurant.save(err => {
     if (err) return console.error(err)
     return res.redirect('/')
@@ -74,14 +104,15 @@ router.delete('/:id/delete', (req, res) => {
   })
 })
 
-// show sort results
-router.get('/:item/:type', (req, res) => {
-  Restaurant.find({})
-    .sort({ [req.params.item]: req.params.type })
-    .exec((err, restaurants) => {
-      if (err) return console.error(err)
-      return res.render('index', { restaurants: restaurants })
-    })
-})
+// // show sort results
+// router.get('/', (req, res) => {
+//   console.log(req.query)
+//   Restaurant.find({})
+//     .sort({ [req.query.type]: req.params.type })
+//     .exec((err, restaurants) => {
+//       if (err) return console.error(err)
+//       return res.render('index', { restaurants: restaurants })
+//     })
+// })
 
 module.exports = router
