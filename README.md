@@ -41,9 +41,9 @@ $ npm run seeder
 Create an new app and using facebook login, and then get applicaiton ID and application Secret. 
 
 5. Set .env and use it
-Step 1. Create an .env file in root.
+* Step 1. Create an .env file in root.  
 
-Step 2. Write env data as following. 
+* Step 2. Write env data as following. 
 ```
 FACEBOOK_ID=//your fackbook application ID from '4. Create facebook login OAuth' setting
 FACEBOOK_SECRET=//your fackbook application Secret from '4. Create facebook login OAuth' setting
