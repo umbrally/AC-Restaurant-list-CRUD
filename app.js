@@ -81,7 +81,6 @@ app.use((req, res, next) => {
 
 app.use('/', require('./routes/home.js'))
 app.use('/restaurants', require('./routes/restaurants.js'))
-app.use('/search', require('./routes/search.js'))
 app.use('/users', require('./routes/user.js'))
 app.use('/auth', require('./routes/auths'))
 

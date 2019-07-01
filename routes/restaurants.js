@@ -7,6 +7,7 @@ const setSelected = require('../helpers/selected.js')
 // 載入 auth middleware
 const { authenticated } = require('../config/auth.js')
 
+// show search and sorting results
 router.get('/', authenticated, (req, res) => {
   const keyword = req.query.keyword
   const regExp = new RegExp(keyword, 'i')
@@ -47,39 +48,10 @@ router.get('/', authenticated, (req, res) => {
 })
 
 
-
-// show sort results
-// router.get('/', authenticated, (req, res) => {
-//   if (req.query.type) {
-//     Restaurant.find({ userId: req.user._id })
-//       .sort({ [req.query.type.split(' ')[0]]: req.query.type.split(' ')[1] })
-//       .exec((err, restaurants) => {
-//         if (err) return console.error(err)
-//         return res.render('index', { restaurants: restaurants })
-//       })
-//   }
-//   else {
-//     Restaurant.find({ userId: req.user._id }, (err, restaurants) => {
-//       if (err) return console.error(err)
-//       return res.render('index', { restaurants: restaurants })
-//     })
-//   }
-// })
-
-
-// // show all restaurants
-// router.get('/', (req, res) => {
-//   Restaurant.find((err, restaurants) => {
-//     if (err) return console.error(err)
-//     return res.render('index', { restaurants: restaurants })
-//   })
-// })
-
 // create new restaurant page
 router.get('/new', authenticated, (req, res) => {
   return res.render('new')
 })
-
 
 
 // create new one restaurant action

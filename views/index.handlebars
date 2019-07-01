@@ -13,29 +13,17 @@
             </div>
           </div>
         </div>
-
-        {{!-- </form> --}}
         <div class="dropdown col-4 align-self-end sort">
           <button class="btn btn-light dropdown-toggle text-left" type="button" id="dropdownMenuButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Sort
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {{!-- <form action="/restaurants" method="GET"> --}}
             <button class="btn" type="submit" name="type" value="name_en asc">A-Z</button>
-            {{!-- </form> --}}
-            {{!-- <form action="/restaurants" method="GET"> --}}
             <button class="btn" type="submit" name="type" value="name_en desc">Z-A</button>
-            {{!-- </form> --}}
-            {{!-- <form action="/restaurants" method="GET"> --}}
             <button class="btn" type="submit" name="type" value="rating desc">評分</button>
-            {{!-- </form> --}}
-            {{!-- <form action="/restaurants" method="GET"> --}}
             <button class="btn" type="submit" name="type" value="category asc">類別</button>
-            {{!-- </form> --}}
-            {{!-- <form action="/restaurants" method="GET"> --}}
             <button class="btn" type="submit" name="type" value="location asc">地區</button>
-            {{!-- </form> --}}
           </div>
         </div>
         <div class="create col-5 align-self-end mt-3">
@@ -62,7 +50,7 @@
                 <div class="restaurant-category mb-1">
                   <i class="fas fa-utensils pr-2"></i> {{this.category}}
                 </div>
-                <span class="badge badge-pill badge-danger font-weight-normal">
+                <span class="badge badge-pill badge-warning font-weight-normal">
                   {{this.rating}}
                   <i class="fas fa-star fa-xs"></i>
                 </span>
@@ -70,10 +58,10 @@
             </div>
           </a>
           <div class="operation text-right">
-            <a href="/restaurants/{{this.id}}/edit" class="mr-2 btn btn-secondary">Edit</a>
-            <a href="/restaurants/{{this.id}}" class="mr-2 btn btn-secondary">Detail</a>
+            <a href="/restaurants/{{this.id}}/edit" class="mr-2 btn btn-info">Edit</a>
+            <a href="/restaurants/{{this.id}}" class="mr-2 btn btn-info">Detail</a>
 
-            <button type="button" class=" btn btn-danger" data-toggle="modal"
+            <button type="button" class=" btn btn-primary" data-toggle="modal"
               data-target="#delete-button-{{this.id}}">Delete</button>
 
 
@@ -105,6 +93,10 @@
         </div>
 
         {{/each}}
+        <div class='top-button-div hidden'>
+          <a class="btn btn-info" id="top" href="#header" role="button">Back to top <i
+              class="fas fa-chevron-up"></i></a>
+        </div>
       </div>
     </div>
   </div>
