@@ -1,6 +1,6 @@
 # Restaurant Pocket List
 
-Favorite restaurants lis 
+Favorite restaurants list 
 
 # Snapshot
 
@@ -10,12 +10,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Install node.js by nvm
-* download nvm-setup.zip from nvm-windows on github and then unzip it
-* install LTS version of node.js
+1. Install node.js by nvm
+    * download nvm-setup.zip from nvm-windows on github and then unzip it
+    * install LTS version of node.js 
 ```
 $ nvm install 10.16.0
 ```
+2. MongoDB  
 
 ### Installing
 
@@ -28,12 +29,32 @@ $ git clone https://github.com/umbrally/AC-Restaurant-list-CRUD.git
 ```
 $ npm install
 ```
-4. Import seed data
+
+3. Import seed data
+
+Step 1. import user data
+```
+$ node ./models/seeds/userSeeder.js
+```
+Step 2. import restaurant data with userID (**Step 1 must be done before this step.)
 ```
 $ node ./models/seeds/restaurantSeeder.js
 ```
+4. Create facebook login OAuth
+[Facebook for Developers](https://developers.facebook.com/)
+Create an new app and using facebook login, and then get applicaiton ID and application Secret. 
 
-5. [http://localhost:3000](http://localhost:3000) on your browser
+5. Set .env and use it
+Step 1. Create an .env file in root.
+
+Step 2. Write env data as following. 
+```
+FACEBOOK_ID=//your fackbook application ID from '4. Create facebook login OAuth' setting
+FACEBOOK_SECRET=//your fackbook application Secret from '4. Create facebook login OAuth' setting
+FACEBOOK_CALLBACK=http://localhost:3000/auth/facebook/callback 
+```
+
+6. [http://localhost:3000](http://localhost:3000) excution on your browser
 ```
 $ npm run dev
 ```
@@ -41,12 +62,19 @@ $ npm run dev
 
 ## Features
 
-* Create new restaurant
-* Read restaurant detail information
-* Edit, delete function on main page and detail page.
-* Alert modal will show if delete button is clicked. 
-* Search restaurants with keywords of name or location or category.
-* Sort by A-Z or Z-A of English name, category, rating and location.
+* User can register by giving email and password. If the email is registered, user will be reminded.
+* User can login by email/password or facebook. If email or password is incorrect, user will be reminded. 
+* If login is not successful, user will not visit any page and redirect to login page.
+* After login is successful, an login session will created and save cookie in user's side. Then, user can use following function:
+  ** Only the restaurants created by the user will be showed.
+  ** Create new restaurant.
+  ** Read restaurant detail information.
+  ** Edit, delete function on main page and detail page.
+  ** Alert modal will show if delete button is clicked. 
+  ** Search restaurants with keywords of name or location or category.
+  ** Sort by A-Z or Z-A of English name, category, rating and location.
+  ** Back to top button will appear after the index page is scrolled. User can click it to go back to the top.  
+* User can logout and session will be deleted.  
 
 ## Authors
 
