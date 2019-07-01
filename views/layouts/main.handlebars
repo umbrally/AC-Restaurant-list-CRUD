@@ -24,10 +24,12 @@
         </a>
         <div class="col-2">
           {{#if isAuthenticated}}
-          <a href="/users/logout" class="align-center badge badge-pill badge-warning" style="font-size: 17px">Logout
+          <a href="/users/logout" class="align-center badge badge-pill badge-warning text-monospace"
+            style="font-size: 17px">Logout
             <i class="fas fa-sign-out-alt"></i></a>
           {{else}}
-          <a href="/users/login" class="align-center badge badge-pill badge-warning" style="font-size: 17px">Login
+          <a href="/users/login" class="align-center badge badge-pill badge-warning text-monospace"
+            style="font-size: 17px">Login
             <i class="fas fa-sign-in-alt"></i></a>
           {{/if}}
         </div>
