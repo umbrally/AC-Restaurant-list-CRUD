@@ -41,7 +41,7 @@ Step 2. import restaurant data with userID (**Step 1 must be done before this st
 $ node ./models/seeds/restaurantSeeder.js
 ```
 4. Create facebook login OAuth
-[Facebook for Developers] (https://developers.facebook.com/)
+[Facebook for Developers](https://developers.facebook.com/)
 Create an new app and using facebook login, and then get applicaiton ID and application Secret. 
 
 5. Set .env and use it
